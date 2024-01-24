@@ -84,5 +84,8 @@ class BahagianController extends Controller
     public function destroy(string $id)
     {
         //
+        // return $id;
+        Bahagian::destroy($id);
+        return redirect('/bahagian')->with('status', 'Bahagain Telah dipadam!');
     }
 }

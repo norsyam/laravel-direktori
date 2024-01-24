@@ -38,6 +38,12 @@
                                     </td>
                                     <td>
                                         <a href="{{route('bahagian.edit',$bahagian->id)}}" class="btn btn-outline-secondary"> Pinda</a>
+                                        {{-- <a href="{{route('bahagian.destroy',$bahagian->id)}}" class="btn btn-danger"> Padam</a> --}}
+                                        <form action="{{route('bahagian.destroy',$bahagian->id)}}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-warning">Padam</button>
+                                        </form>
                                         <a href="{{route('direktori.index',['id_bahagian'=>$bahagian->id])}}" class="btn btn-secondary"> Staff</a>
                                     </td>
                                 </tr>
