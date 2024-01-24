@@ -18,7 +18,7 @@ class BahagianController extends Controller
     public function index(Request $request)
     {
         //
-        $bahagians = Bahagian::all();
+        $bahagians = Bahagian::paginate(5)->withQueryString();
         // dd($bahagians);
         return view('bahagian.index',compact('bahagians'));
     }

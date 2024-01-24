@@ -24,7 +24,8 @@ class DirektoriController extends Controller
         $id_bahagian = $request->id_bahagian;
         $bahagian = Bahagian::find($id_bahagian);
         $bahagians = Bahagian::all();
-        $direktoris = Direktori::where('id_bahagian','=',$id_bahagian)->get();
+        $direktoris = Direktori::where('id_bahagian','=',$id_bahagian)
+        ->paginate(5)->withQueryString();
         return view('direktori.index',compact('direktoris','bahagian','bahagians'));
     }
 
