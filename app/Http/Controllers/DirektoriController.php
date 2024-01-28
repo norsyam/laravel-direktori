@@ -22,10 +22,27 @@ class DirektoriController extends Controller
     {
         //
         $id_bahagian = $request->id_bahagian;
+        // dd($request->id_bahagian);
         $bahagian = Bahagian::find($id_bahagian);
         $bahagians = Bahagian::all();
-        $direktoris = Direktori::where('id_bahagian','=',$id_bahagian)
-        ->paginate(5)->withQueryString();
+        if($request->filled('search')){
+            $direktoris = Direktori::search($request->search)
+            // ->select('personel.nama','personel.no_kp')
+            ->query(function ($query){
+                $query->join('personel','direktori.id_personel','personel.id')
+                // ->select('personel.nama','personel.no_kp','direktori.id as id')
+                ->select('direktori.*','personel.nama','personel.no_kp')
+                ->orderBy('personel.id', 'DESC');
+            })
+            ->where('direktori.id_bahagian',$request->id_bahagian)
+            ->orderBy('direktori.id', 'DESC')
+            ->paginate(5)->withQueryString();
+            // dd($direktoris);
+        }else{
+            $direktoris = Direktori::where('id_bahagian','=',$id_bahagian)
+            ->paginate(5)->withQueryString();
+            // dd($direktoris);
+        }
         return view('direktori.index',compact('direktoris','bahagian','bahagians'));
     }
 
