@@ -14,14 +14,26 @@
                         </div>
                     @endif
                     <p>Senarai Personel</p>
-
+                    <form method="GET">
+                        <div class="input-group mb-3">
+                          <input
+                            type="text"
+                            name="search"
+                            value="{{ request()->get('search') }}"
+                            class="form-control"
+                            placeholder="Search..."
+                            aria-label="Search"
+                            aria-describedby="button-addon2">
+                          <button class="btn btn-success" type="submit" id="button-addon2">Search</button>
+                        </div>
+                    </form>
 
                     <table class="table">
                         <thead>
                           <tr>
                             <th>Bil.</th>
+                            <th scope="col">Nama</th>
                             <th scope="col">No KP</th>
-                            <th>Profil</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -33,13 +45,11 @@
                                     <td>
                                         {{$i++}}
                                     </td>
-
+                                    <td>
+                                        {{$personel->nama}}
+                                    </td>
                                     <td>
                                         {{$personel->no_kp}}
-                                    </td>
-
-                                    <td>
-                                        <a href="{{route('personel.show',$personel->no_kp)}}" class="btn btn-secondary"><i class="bi bi-person-circle"></i> Profil</a>
                                     </td>
                                 </tr>
                             @endforeach

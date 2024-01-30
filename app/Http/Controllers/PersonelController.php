@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Personel;
 use Illuminate\Http\Request;
+use App\Http\Controllers\API\ApiPersonelController;
 
 class PersonelController extends Controller
 {
@@ -13,13 +14,22 @@ class PersonelController extends Controller
     public function index(Request $request)
     {
         //
-        if($request->filled('search')){
-            $personels = Personel::search($request->search)->get();
+        // if($request->filled('search')){
+        //     $personels = Personel::search($request->search)->get();
+        // }else{
+        //     $personels = Personel::all();
+        // }
+
+        $personels_response = (new ApiPersonelController)->personel_luar_list();
+        // dd($personels->success);
+        if($personels_response->success === true){
+            $personels = $personels_response->data;
+            return view('personel.index',compact('personels'));
         }else{
-            $personels = Personel::all();
+            return 404;
         }
 
-        return view('personel.index',compact('personels'));
+
     }
 
     /**
@@ -44,6 +54,10 @@ class PersonelController extends Controller
     public function show(string $id)
     {
         //
+        dd($id);
+        $personels_response = (new ApiPersonelController)->personel_luar($id);
+        return $personels_response;
+
     }
 
     /**
