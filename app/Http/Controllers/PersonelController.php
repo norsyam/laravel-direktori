@@ -54,9 +54,15 @@ class PersonelController extends Controller
     public function show(string $id)
     {
         //
-        dd($id);
+        // dd($id);
         $personels_response = (new ApiPersonelController)->personel_luar($id);
-        return $personels_response;
+        // return $personels_response;
+        if($personels_response->success === true){
+            $personel = $personels_response->data;
+            return view('personel.show',compact('personel'));
+        }else{
+            return 404;
+        }
 
     }
 

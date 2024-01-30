@@ -39,7 +39,7 @@ class ApiPersonelController extends BaseController
         }
     }
 
-    public function personel_luar(Request $request)
+    public function personel_luar($no_kp)//Request $request
     {
         $url_login = env('URL_RAIHAN').'/api/login';
         $headers = [
@@ -63,7 +63,8 @@ class ApiPersonelController extends BaseController
         ];
 
         $post = [
-            "no_kp" => $request->no_kp
+            // "no_kp" => $request->no_kp
+            "no_kp" => $no_kp
         ];
 
         $url = env('URL_RAIHAN').'/api/personel';
